@@ -1,8 +1,9 @@
-class GrassEater extends LivingCreature{
+var LivingCreature = require("./living_creature")
+module.exports = class Predator extends LivingCreature {
     constructor(x, y) {
         super(x,y);
         this.energy = 8;
-        
+        this.directions = [];
     }
     getNewCoordinates() {
         this.directions = [
@@ -29,10 +30,10 @@ class GrassEater extends LivingCreature{
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = 2;
+            matrix[newY][newX] = 3;
 
-            var newGrass = new GrassEater(newX, newY);
-            grassEaterArr.push(newGrass);
+            var newPred = new Predator(newX, newY);
+            PredatorArr.push(newPred);
             this.energy = 8;
         }
     }
@@ -54,7 +55,7 @@ class GrassEater extends LivingCreature{
     }
 
     eat() {
-        var emptyCells = this.chooseCell(1);
+        var emptyCells = this.chooseCell(2);
         var newCell = random(emptyCells);
         if (newCell) {
             this.energy++
@@ -67,9 +68,9 @@ class GrassEater extends LivingCreature{
             if (this.energy > 15) {
                 this.mul()
             }
-            for (var i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
+            for (var i in grassEaterArr) {
+                if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
+                    grassEaterArr.splice(i, 1);
                     break;
                 }
             }
@@ -81,9 +82,9 @@ class GrassEater extends LivingCreature{
 
     die() {
         matrix[this.y][this.x] = 0;
-        for (var i in grassEaterArr) {
-            if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
-                grassEaterArr.splice(i, 1);
+        for (var i in PredatorArr) {
+            if (this.x == PredatorArr[i].x && this.y == PredatorArr[i].y) {
+                PredatorArr.splice(i, 1);
                 break;
             }
         }

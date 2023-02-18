@@ -1,4 +1,5 @@
-class Bomb extends LivingCreature{
+var LivingCreature = require("./living_creature")
+module.exports = class Bomb extends LivingCreature{
     bomb() {
         for (var i in this.directions) {
             var x = this.directions[i][0];

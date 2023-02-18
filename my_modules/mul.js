@@ -1,5 +1,6 @@
-class Mul {
-    constructor(x, y) {
+var LivingCreature = require("./living_creature")
+module.exports = class Mul extends LivingCreature {
+    constructor(x,y) {
        super(x,y);
     }
     getNewCoordinates() {
